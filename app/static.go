@@ -42,6 +42,7 @@ func static(filepath string) string {
 	var hash []byte
 
 	if err := cache.Get(filepath, &hash); err != nil {
+
 		fname := prefixedPath(filepath)
 		_, err := os.Stat(fname)
 		if err != nil {
@@ -57,7 +58,7 @@ func static(filepath string) string {
 		go cache.Set(filepath, hash, cache.DEFAULT)
 	}
 
-	return fmt.Sprintf("%s?v=%x", fpath.Join(PREFIX, filepath), hash)
+	return fmt.Sprintf("/%s?v=%x", fpath.Join(PREFIX, filepath), hash)
 
 }
 
